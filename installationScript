@@ -1,0 +1,31 @@
+#!/bin/bash
+# script stops on error
+set -e
+
+aptPrograms=(vim git)
+jetbrains=(pycharm-community webstorm intellij-idea-community)
+snaps=(nordpass)
+
+apt update
+echo "apt update successful"
+apt -y install ${aptPrograms[@]}
+echo "apt install successful"
+echo "installed following packages: ${aptPrograms[@]}"
+
+snap install ${snaps[@]}
+echo "snaps installed"
+echo "installed following snaps: ${snaps[@]}"
+
+for app in "${jetbrains[@]}"
+do
+	installApplication="$app --classic"
+	snap install $installApplication
+done
+echo "jetbrain-application installed successful"
+echo "installed following jetbrains: ${jetbrains[@]}"
+
+git config --global user.name "Danilo Bigovic"
+git config --global user.email "d.big.be@gmail.com"
+echo "git configured"
+
+exit 0
