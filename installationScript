@@ -28,16 +28,15 @@ echo "installed following jetbrains: ${jetbrains[@]}"
 # configurations
 git config --global user.name "Danilo Bigovic"
 git config --global user.email "d.big.be@gmail.com"
-mkdir ~/Documents/installationScripts
-cd ~/Documents/installationScripts
+cd ~/Documents
 git clone https://github.com/bigBrownBear91/installationScript.git
-echo "git configured"
+echo "Git configured and repo installationScript cloned"
 
 snap connect nordpass:password-manager-service
 echo "Permissions for NordPass to store security keys locally granted"
 
 firefoxPath="~/.mozilla/firefox"
-cp profiles.ini "${firefoxPath}/profiles.ini"
+cp installationScript/profiles.ini "${firefoxPath}/profiles.ini"
 echo "Firefox configurations copied successfully"
 
 exit 0
