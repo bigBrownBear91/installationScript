@@ -2,12 +2,40 @@
 # script stops on error
 set -e
 
+# define programs which should be installed and remove already installed programs from the arrays
 aptPrograms=(vim git curl)
 jetbrains=(pycharm-community webstorm intellij-idea-community)
 snaps=(nordpass)
 
-# install programs
-apt update -qq
+for app in ${aptPrograms[@]}
+do
+	if [which "$app" -eq 0 ];
+	then
+		aptPrograms=( "${aptPrograms[@]/$app}" )
+		echo "$app" already installed
+	fi
+done
+
+for app in ${jetbrains[@]}
+do
+	if [which "$app" -eq 0 ];
+	then
+		jetbrains=( "${jetbrains[@]/$app}" )
+		echo "$app" already installed
+	fi
+done
+
+for app in ${snaps[@]}
+do
+	if [which "$app" -eq 0 ];
+	then
+		snaps=( "${snaps[@]/$app}" )
+		echo "$app" already installed
+	fi
+done
+
+# install the programs from the array
+apt update
 echo "apt update successful"
 apt -y install ${aptPrograms[@]}
 echo "apt install successful"
