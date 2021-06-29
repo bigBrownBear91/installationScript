@@ -2,12 +2,12 @@
 # script stops on error
 set -e
 
-aptPrograms=(vim git)
+aptPrograms=(vim git curl)
 jetbrains=(pycharm-community webstorm intellij-idea-community)
 snaps=(nordpass)
 
 # install programs
-apt update
+apt update -qq
 echo "apt update successful"
 apt -y install ${aptPrograms[@]}
 echo "apt install successful"
@@ -38,5 +38,10 @@ echo "Permissions for NordPass to store security keys locally granted"
 firefoxPath="~/.mozilla/firefox"
 cp installationScript/profiles.ini "${firefoxPath}/profiles.ini"
 echo "Firefox configurations copied successfully"
+
+# download and execute abaclient
+curl https://storage.googleapis.com/images.abasky.net/119676df089a90ab3c3004398806433938052586dcd9a6bcacfb0e3e4024f339/2.2.672/abaclient-2.2.672.run --output Downloads/abaclient.run
+chmod +x Downloads/abaclient.run
+rm Downloads/abaclient.run
 
 exit 0
