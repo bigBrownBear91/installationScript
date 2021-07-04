@@ -37,8 +37,12 @@ snap connect nordpass:password-manager-service
 echo "Permissions for NordPass to store security keys locally granted"
 
 firefoxPath="~/.mozilla/firefox"
-cp installationScript/profiles.ini "${firefoxPath}/profiles.ini"
-echo "Firefox configurations copied successfully"
+cp ~/Documents/installationScript/profiles.ini "${firefoxPath}/profiles.ini"
+if [ echo "$?" -eq 0 ]; then
+	echo "Firefox configurations copied successfully"
+else
+	echo "Firefox configurations unsuccessful"
+fi
 
 # download and execute abaclient
 curl https://storage.googleapis.com/images.abasky.net/119676df089a90ab3c3004398806433938052586dcd9a6bcacfb0e3e4024f339/2.2.672/abaclient-2.2.672.run --output Downloads/abaclient.run
