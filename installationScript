@@ -29,6 +29,7 @@ echo "installed following jetbrains: ${jetbrains[@]}"
 # configurations
 git config --global user.name "Danilo Bigovic"
 git config --global user.email "d.big.be@gmail.com"
+git config --global diff.tool vimdiff
 cd ~/Documents
 git clone https://github.com/bigBrownBear91/installationScript.git
 echo "Git configured and repo installationScript cloned"
@@ -45,8 +46,8 @@ else
 fi
 
 # download and execute abaclient
-curl https://storage.googleapis.com/images.abasky.net/119676df089a90ab3c3004398806433938052586dcd9a6bcacfb0e3e4024f339/2.2.672/abaclient-2.2.672.run --output Downloads/abaclient.run
-chmod +x Downloads/abaclient.run
+curl https://storage.googleapis.com/images.abasky.net/119676df089a90ab3c3004398806433938052586dcd9a6bcacfb0e3e4024f339/2.2.672/abaclient-2.2.672.run --output ~/Downloads/abaclient.run
+sh ~/Downloads/abaclient.run
 rm Downloads/abaclient.run
 echo "Abaclient downloaded and installed"
 
