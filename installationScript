@@ -4,7 +4,9 @@ set -e
 
 # define programs which should be installed and remove already installed programs from the arrays
 aptPrograms=(vim git curl)
-jetbrains=(pycharm-community webstorm intellij-idea-community)
+#for testing purposes: only install pycharm
+#jetbrains=(pycharm-community webstorm intellij-idea-community)
+jetbrains=(pycharm-community)
 snaps=(nordpass)
 
 for app in ${aptPrograms[@]}
