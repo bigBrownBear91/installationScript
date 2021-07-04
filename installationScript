@@ -30,9 +30,14 @@ echo "installed following jetbrains: ${jetbrains[@]}"
 git config --global user.name "Danilo Bigovic"
 git config --global user.email "d.big.be@gmail.com"
 git config --global diff.tool vimdiff
-cd ~/Documents
-git clone https://github.com/bigBrownBear91/installationScript.git
-echo "Git configured and repo installationScript cloned"
+user="ubuntu"
+chmod +r /home/ubuntu/Documents
+if [ -d "installationScript" ]; then
+	echo "Directory installationScript exists already"
+else
+	git clone https://github.com/bigBrownBear91/installationScript.git
+	echo "Git configured and repo installationScript cloned"
+fi
 
 snap connect nordpass:password-manager-service
 echo "Permissions for NordPass to store security keys locally granted"
