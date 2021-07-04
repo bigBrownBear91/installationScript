@@ -55,9 +55,13 @@ else
 fi
 
 # download and execute abaclient
-curl https://storage.googleapis.com/images.abasky.net/119676df089a90ab3c3004398806433938052586dcd9a6bcacfb0e3e4024f339/2.2.672/abaclient-2.2.672.run --output /home/"$user"/Downloads/abaclient.run
-sh /home/"$user"/Downloads/abaclient.run
-rm /home/"$user"/Downloads/abaclient.run
-echo "Abaclient downloaded and installed"
+if [ ! type "$abaclient" > /dev/null ]; then #raises an unary operator expected error, but works nontheless
+	curl https://storage.googleapis.com/images.abasky.net/119676df089a90ab3c3004398806433938052586dcd9a6bcacfb0e3e4024f339/2.2.672/abaclient-2.2.672.run --output /home/"$user"/Downloads/abaclient.run
+	sh /home/"$user"/Downloads/abaclient.run
+	rm /home/"$user"/Downloads/abaclient.run
+	echo "Abaclient downloaded and installed"
+else
+	echo "Abaclient is already installed"
+fi
 
 exit 0
