@@ -43,10 +43,10 @@ fi
 snap connect nordpass:password-manager-service
 echo "Permissions for NordPass to store security keys locally granted"
 
+# open and closes firefox to create config directory and copy config from version control
 firefoxPath=""$pathToHome"/.mozilla/firefox"
-if [ ! -d ""$pathToHome"/.mozilla" ]; then
-	mkdir -p "$pathToHome"/.mozilla/firefox
-fi
+firefox --headless &
+ps aux | grep firefox | awk '{print $2}' | xargs kill &> /dev/null
 cp "$pathToDocuments"/installationScript/profiles.ini "${firefoxPath}"/profiles.ini
 if [ $? -eq 0 ]; then
 	echo "Firefox configurations copied successfully"
