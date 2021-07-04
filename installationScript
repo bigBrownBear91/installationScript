@@ -1,5 +1,7 @@
 #!/bin/bash
 
+user="ubuntu"
+
 # define programs which should be installed
 aptPrograms=(vim git curl)
 #for testing purposes: only install pycharm
@@ -11,49 +13,51 @@ snaps=(nordpass)
 apt update -qq
 echo "apt update successful"
 apt -y install ${aptPrograms[@]}
-echo "apt install successful"
-echo "installed following packages: ${aptPrograms[@]}"
+echo "apt-programs installed successfully"
 
 snap install ${snaps[@]}
-echo "snaps installed"
-echo "installed following snaps: ${snaps[@]}"
+echo "snaps installed successfully"
 
 for app in "${jetbrains[@]}"
 do
 	installApplication="$app --classic"
 	snap install $installApplication
 done
-echo "jetbrain-application installed successful"
-echo "installed following jetbrains: ${jetbrains[@]}"
+echo "jetbrain-application installed successfully"
 
 # configurations
 git config --global user.name "Danilo Bigovic"
 git config --global user.email "d.big.be@gmail.com"
 git config --global diff.tool vimdiff
-user="ubuntu"
-chmod +r /home/ubuntu/Documents
-if [ -d "installationScript" ]; then
+
+pathToHome="/home/"$user"" # necessary because cd is not possible in sudo
+pathToDocuments=""$pathToHome"/Documents" 
+pathToDownloads=""$pathToHome"/Downloads"
+if [ -d ""$pathToDocuments"/installationScript" ]; then
 	echo "Directory installationScript exists already"
 else
-	git clone https://github.com/bigBrownBear91/installationScript.git
+	git clone https://github.com/bigBrownBear91/installationScript.git "$pathToDocuments"
 	echo "Git configured and repo installationScript cloned"
 fi
 
 snap connect nordpass:password-manager-service
 echo "Permissions for NordPass to store security keys locally granted"
 
-firefoxPath="~/.mozilla/firefox"
-cp ~/Documents/installationScript/profiles.ini "${firefoxPath}/profiles.ini"
-if [ echo "$?" -eq 0 ]; then
+firefoxPath=""$pathToHome"/.mozilla/firefox"
+if [ ! -d ""$pathToHome"/.mozilla" ]; then
+	mkdir -p "$pathToHome"/.mozilla/firefox
+fi
+cp "$pathToDocuments"/installationScript/profiles.ini "${firefoxPath}"/profiles.ini
+if [ $? -eq 0 ]; then
 	echo "Firefox configurations copied successfully"
 else
 	echo "Firefox configurations unsuccessful"
 fi
 
 # download and execute abaclient
-curl https://storage.googleapis.com/images.abasky.net/119676df089a90ab3c3004398806433938052586dcd9a6bcacfb0e3e4024f339/2.2.672/abaclient-2.2.672.run --output ~/Downloads/abaclient.run
-sh ~/Downloads/abaclient.run
-rm Downloads/abaclient.run
+curl https://storage.googleapis.com/images.abasky.net/119676df089a90ab3c3004398806433938052586dcd9a6bcacfb0e3e4024f339/2.2.672/abaclient-2.2.672.run --output /home/"$user"/Downloads/abaclient.run
+sh /home/"$user"/Downloads/abaclient.run
+rm /home/"$user"/Downloads/abaclient.run
 echo "Abaclient downloaded and installed"
 
 exit 0
